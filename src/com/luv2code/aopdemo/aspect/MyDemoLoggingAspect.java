@@ -8,17 +8,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyDemoLoggingAspect {
 
-	// here we add all our related advices for logging
-
-	// lets start with an @Before advice
 	// "execution" is a point-cut!
-	@Before("execution(boolean add*())")
+	@Before("execution(* add*(com.luv2code.aopdemo.Account, ..))")
 	public void beforeAddAccountAdvice() {
+		System.out.println("\n=======>>>> Executon @Before advice on add*(), ONLY on correct PARAMETER + wildcard");
+	}
+
+	//
+	@Before("execution(boolean add*())")
+	public void beforeAddAccountAdviceBoolean() {
 		System.out.println("\n=======>>>> Executon @Before advice on add*(), ONLY on return BOOLEAN");
 	}
 
-	@Before("execution(* com.luv2code.aopdemo.dao.MembershipDAO.addAccount())")
+	// Package name + class + method-wildcard ( 0 or more parmeters)
+	@Before("execution(* com.luv2code.aopdemo.dao.MembershipDAO.*(..))")
 	public void beforeAddMembershipAccount() {
 		System.out.println("\n=======>>>> Executon @Before advice on addAccount(), ONLY in MembershipDAO!");
 	}
+
 }

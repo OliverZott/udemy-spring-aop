@@ -1,3 +1,9 @@
+# Content 
+- **Advice** type `@Before`
+- **Pointcut Exprressions**  
+	- Match *method* and/or *return type*  
+	- Match *method parameters*  
+
 # SetUp
 1. Copied *spring-demo-annotations* (for **lib** - spring jar files)
 2. Add **AspectJ** jar files [(Link)](https://mvnrepository.com/artifact/org.aspectj/aspectjweaver)
@@ -11,4 +17,7 @@
 3. Create **main app** (IoC)  
 4. Create an **Aspect** with `@Before`-**Advice**    
 	- **Pointcut** ...pattern which specifies **Join Points** interesting for respective Aspect  
-	- Use **Pointcut Expressions** to specify join points (**Wildcards** possible)
+	- Use **Pointcut Expressions** to specify join points (**Wildcards** possible)  
+	- *Match methods*... access modifier / return values / package.class.method / parameter
+	- **Pointcut Declarations** ... for re-using Pointcut Expressions on several advices
+
