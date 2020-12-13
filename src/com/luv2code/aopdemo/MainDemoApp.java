@@ -9,7 +9,7 @@ public class MainDemoApp {
 
 	public static void main(String[] args) {
 
-		// read spring config java class
+		// read spring configuration java class
 		// ApplicationContext is the spring container
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DemoConfig.class);
 
