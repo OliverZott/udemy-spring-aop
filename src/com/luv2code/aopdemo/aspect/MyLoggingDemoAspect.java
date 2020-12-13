@@ -1,6 +1,9 @@
 package com.luv2code.aopdemo.aspect;
 
+import java.util.List;
+
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -19,7 +22,7 @@ public class MyLoggingDemoAspect {
 
 		// display method signature
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-		System.out.println("Aspect Method: '" + methodSignature + "'.");
+		System.out.println("Advice @Before: '" + methodSignature + "'.");
 
 		// display method arguments
 		Object[] args = joinPoint.getArgs();
@@ -35,6 +38,18 @@ public class MyLoggingDemoAspect {
 				System.out.println("    ClassName: " + account.getClass());
 			}
 		}
+	}
+
+	@AfterReturning(pointcut = "com.luv2code.aopdemo.aspect.AopExpressions.afterFindAccountsAdvice()", returning = "returnFindAccounts")
+	public void afterReturnFindAccountsAdvice(JoinPoint joinPoint, List<Account> returnFindAccounts) {
+
+		// print which method we are advising on
+		String methodName = joinPoint.getSignature().toShortString();
+		System.out.println("Advice @AfterReturning: " + methodName);
+
+		// print out the result of the method call
+		System.out.println("Advice @AfterReturning-Result: " + returnFindAccounts);
+
 	}
 
 }

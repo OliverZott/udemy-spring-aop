@@ -25,4 +25,8 @@ public class AopExpressions {
 	public void beforeAddAccountAdvice() {
 	}
 
+	@Pointcut("execution(* com.luv2code.aopdemo.dao.AccountDAO.find*(..))")
+	public void afterFindAccountsAdvice() {
+	}
+
 }
