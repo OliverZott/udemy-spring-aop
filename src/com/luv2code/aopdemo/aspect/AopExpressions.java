@@ -8,7 +8,7 @@ public class AopExpressions {
 
 	// Pointcut Declaration for usage in various Aspects
 
-	// Package name + class + method-wildcard ( 0 or more parmeters)
+	// Package name + class + method-wildcard ( 0 or more parameters)
 	@Pointcut("execution(* com.luv2code.aopdemo.dao.MembershipDAO.*(..))")
 	public void forMembershipDao() {
 	}

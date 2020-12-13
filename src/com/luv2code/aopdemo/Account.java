@@ -3,8 +3,15 @@ package com.luv2code.aopdemo;
 public class Account {
 	
 	private String level;
-	
 	private String name;
+
+	
+	
+	public Account(String level, String name) {
+		super();
+		this.level = level;
+		this.name = name;
+	}
 
 	public String getLevel() {
 		return level;
