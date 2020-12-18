@@ -8,7 +8,19 @@ import com.luv2code.aopdemo.Account;
 @Component
 public class AccountDAO {
 
-	public List<Account> findAccounts() {
+	/**
+	 * Some @AfterThrowing and @Around example function
+	 * 
+	 * @param boolean exceptionFlag
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Account> findAccounts(boolean exceptionFlag) throws Exception {
+
+		if (exceptionFlag) {
+			throw new Exception("This suuuucks");
+		}
+
 		List<Account> accounts = new ArrayList<>();
 
 		String name = new Object() {

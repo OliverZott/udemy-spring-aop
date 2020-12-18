@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -46,10 +47,28 @@ public class MyLoggingDemoAspect {
 		// print which method we are advising on
 		String methodName = joinPoint.getSignature().toShortString();
 		System.out.println("Advice @AfterReturning: " + methodName);
-
-		// print out the result of the method call
 		System.out.println("Advice @AfterReturning-Result: " + returnFindAccounts);
 
+		// print out the result of the method call with call-back (Modify-Result)
+		convertAccountNamesToUpperCase(returnFindAccounts);
+
+		System.out.println("Advice @AfterReturning-Result: " + returnFindAccounts);
 	}
 
+	private void convertAccountNamesToUpperCase(List<Account> returnFindAccounts) {
+
+		for (Account tempAccount : returnFindAccounts) {
+			String upperCaseAccountName = tempAccount.getName().toUpperCase();
+			tempAccount.setName(upperCaseAccountName);
+		}
+	}
+
+	@AfterThrowing(pointcut = "com.luv2code.aopdemo.aspect.AopExpressions.afterErrorFindAccountAdvice()", throwing = "exc")
+	public void afterThrowingFindAccoundAdvice(JoinPoint joinPoint, Throwable exc) {
+
+		String methodName = joinPoint.getSignature().toShortString();
+		System.out.println("=======> Executing @AfterThrowing on: " + methodName);
+		System.out.println("=======> The Exception is: " + exc);
+
+	}
 }
