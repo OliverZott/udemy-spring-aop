@@ -33,4 +33,8 @@ public class AopExpressions {
 	public void afterErrorFindAccountAdvice() {
 	}
 
+	@Pointcut("execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))")
+	public void afterFinallyFindAccount() {
+	}
+
 }

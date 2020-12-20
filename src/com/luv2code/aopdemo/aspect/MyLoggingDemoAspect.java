@@ -3,6 +3,7 @@ package com.luv2code.aopdemo.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -65,10 +66,15 @@ public class MyLoggingDemoAspect {
 
 	@AfterThrowing(pointcut = "com.luv2code.aopdemo.aspect.AopExpressions.afterErrorFindAccountAdvice()", throwing = "exc")
 	public void afterThrowingFindAccoundAdvice(JoinPoint joinPoint, Throwable exc) {
-
 		String methodName = joinPoint.getSignature().toShortString();
 		System.out.println("=======> Executing @AfterThrowing on: " + methodName);
 		System.out.println("=======> The Exception is: " + exc);
+	}
+
+	@After("com.luv2code.aopdemo.aspect.AopExpressions.afterFinallyFindAccount()")
+	public void afterFinallyFindAccountAdvice(JoinPoint joinPoint) {
+		String methodName = joinPoint.getSignature().toShortString();
+		System.out.println("=======> Executing @After (finally) on: " + methodName);
 
 	}
 }
