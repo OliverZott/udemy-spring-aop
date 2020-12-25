@@ -1,6 +1,7 @@
 package com.luv2code.aopdemo.aspect;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,25 +22,27 @@ import com.luv2code.aopdemo.Account;
 @Order(2)
 public class MyLoggingDemoAspect {
 
+	private Logger myLogger = Logger.getLogger(MyLoggingDemoAspect.class.getName());
+
 	@Before("com.luv2code.aopdemo.aspect.AopExpressions.beforeAddAccountAdvice()")
 	public void beforeAddAccountAdvice(JoinPoint joinPoint) {
 
 		// display method signature
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-		System.out.println("Advice @Before: '" + methodSignature + "'.");
+		myLogger.info("Advice @Before: '" + methodSignature + "'.");
 
 		// display method arguments
 		Object[] args = joinPoint.getArgs();
 		for (Object argument : args) {
-			System.out.println(argument);
+			myLogger.info(argument.toString());
 
 			// downcast general object to account
 			if (argument instanceof Account) {
 
 				Account account = (Account) argument;
-				System.out.println("    Name: " + account.getName());
-				System.out.println("    Level: " + account.getLevel());
-				System.out.println("    ClassName: " + account.getClass());
+				myLogger.info("    Name: " + account.getName());
+				myLogger.info("    Level: " + account.getLevel());
+				myLogger.info("    ClassName: " + account.getClass());
 			}
 		}
 	}
@@ -49,13 +52,13 @@ public class MyLoggingDemoAspect {
 
 		// print which method we are advising on
 		String methodName = joinPoint.getSignature().toShortString();
-		System.out.println("Advice @AfterReturning: " + methodName);
-		System.out.println("Advice @AfterReturning-Result: " + returnFindAccounts);
+		myLogger.info("Advice @AfterReturning: " + methodName);
+		myLogger.info("Advice @AfterReturning-Result: " + returnFindAccounts);
 
 		// print out the result of the method call with call-back (Modify-Result)
 		convertAccountNamesToUpperCase(returnFindAccounts);
 
-		System.out.println("Advice @AfterReturning-Result: " + returnFindAccounts);
+		myLogger.info("Advice @AfterReturning-Result: " + returnFindAccounts);
 	}
 
 	private void convertAccountNamesToUpperCase(List<Account> returnFindAccounts) {
@@ -69,14 +72,14 @@ public class MyLoggingDemoAspect {
 	@AfterThrowing(pointcut = "com.luv2code.aopdemo.aspect.AopExpressions.afterErrorFindAccountAdvice()", throwing = "exc")
 	public void afterThrowingFindAccoundAdvice(JoinPoint joinPoint, Throwable exc) {
 		String methodName = joinPoint.getSignature().toShortString();
-		System.out.println("=======> Executing @AfterThrowing on: " + methodName);
-		System.out.println("=======> The Exception is: " + exc);
+		myLogger.info("=======> Executing @AfterThrowing on: " + methodName);
+		myLogger.info("=======> The Exception is: " + exc);
 	}
 
 	@After("com.luv2code.aopdemo.aspect.AopExpressions.afterFinallyFindAccount()")
 	public void afterFinallyFindAccountAdvice(JoinPoint joinPoint) {
 		String methodName = joinPoint.getSignature().toShortString();
-		System.out.println("=======> Executing @After (finally) on: " + methodName);
+		myLogger.info("=======> Executing @After (finally) on: " + methodName);
 	}
 
 	// return null / Object-return type
@@ -86,7 +89,7 @@ public class MyLoggingDemoAspect {
 
 		// print out method we are advising on
 		String methodName = proceedingJoinPoint.getSignature().toShortString();
-		System.out.println("=======> Executing @Around on: " + methodName);
+		myLogger.info("=======> Executing @Around on: " + methodName);
 
 		// get begin time-stamp
 		long begin = System.currentTimeMillis();
@@ -98,7 +101,7 @@ public class MyLoggingDemoAspect {
 		long end = System.currentTimeMillis();
 
 		// compute + display duration
-		System.out.println("Method execution took " + (end - begin) + " ms");
+		myLogger.info("Method execution took " + (end - begin) + " ms");
 
 		return result;
 	}
