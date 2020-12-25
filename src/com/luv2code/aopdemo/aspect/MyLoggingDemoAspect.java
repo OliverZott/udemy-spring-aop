@@ -3,9 +3,11 @@ package com.luv2code.aopdemo.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -75,6 +77,30 @@ public class MyLoggingDemoAspect {
 	public void afterFinallyFindAccountAdvice(JoinPoint joinPoint) {
 		String methodName = joinPoint.getSignature().toShortString();
 		System.out.println("=======> Executing @After (finally) on: " + methodName);
-
 	}
+
+	// return null / Object-return type
+	// ProceedingJoinPoint --> needs "throws" declaration
+	@Around("com.luv2code.aopdemo.aspect.AopExpressions.aroundGetFortuneAdvice()")
+	public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+
+		// print out method we are advising on
+		String methodName = proceedingJoinPoint.getSignature().toShortString();
+		System.out.println("=======> Executing @Around on: " + methodName);
+
+		// get begin time-stamp
+		long begin = System.currentTimeMillis();
+
+		// execute method
+		Object result = proceedingJoinPoint.proceed();
+
+		// get end time-stamp
+		long end = System.currentTimeMillis();
+
+		// compute + display duration
+		System.out.println("Method execution took " + (end - begin) + " ms");
+
+		return result;
+	}
+
 }

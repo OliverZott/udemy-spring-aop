@@ -37,4 +37,8 @@ public class AopExpressions {
 	public void afterFinallyFindAccount() {
 	}
 
+	@Pointcut("execution(* com.luv2code.aopdemo.service.*.get*(..))")
+	public void aroundGetFortuneAdvice() {
+	}
+
 }

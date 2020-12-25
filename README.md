@@ -24,8 +24,10 @@
  	- **@Before**  
  	- **@AfterReturning**  
  	- **@AfterThrowing**  
- 	- **@After**  
- 		- Recent changes in order: [(Link)](https://github.com/spring-projects/spring-framework/issues/25186)
+ 	- **@After** ... Recent changes in order: [(Link)](https://github.com/spring-projects/spring-framework/issues/25186)  
+ 	- **@Around** ... `ProceedingJoinPoint`   
+ 	
+ 	
  		
  
  	
