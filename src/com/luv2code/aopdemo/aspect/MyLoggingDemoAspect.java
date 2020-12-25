@@ -104,8 +104,8 @@ public class MyLoggingDemoAspect {
 			// Best practice: LOG exception
 			myLogger.warning(e.getMessage());
 
-			// return custom message
-			result = "Major Exception but we catched it!";
+			// Re-Throw exception
+			throw e;
 		}
 
 		// get end time-stamp
