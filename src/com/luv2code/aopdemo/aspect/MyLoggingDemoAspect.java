@@ -82,8 +82,6 @@ public class MyLoggingDemoAspect {
 		myLogger.info("=======> Executing @After (finally) on: " + methodName);
 	}
 
-	// return null / Object-return type
-	// ProceedingJoinPoint --> needs "throws" declaration
 	@Around("com.luv2code.aopdemo.aspect.AopExpressions.aroundGetFortuneAdvice()")
 	public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 
@@ -94,8 +92,21 @@ public class MyLoggingDemoAspect {
 		// get begin time-stamp
 		long begin = System.currentTimeMillis();
 
-		// execute method
-		Object result = proceedingJoinPoint.proceed();
+		Object result = null;
+
+		/**
+		 * Execute method and handle exception Exception handling inside this advice !!!
+		 */
+		try {
+			result = proceedingJoinPoint.proceed();
+		} catch (Throwable e) {
+
+			// Best practice: LOG exception
+			myLogger.warning(e.getMessage());
+
+			// return custom message
+			result = "Major Exception but we catched it!";
+		}
 
 		// get end time-stamp
 		long end = System.currentTimeMillis();

@@ -25,10 +25,10 @@
  	- **@AfterReturning**  
  	- **@AfterThrowing**  
  	- **@After** ... Recent changes in order: [(Link)](https://github.com/spring-projects/spring-framework/issues/25186)  
- 	- **@Around** ... `ProceedingJoinPoint`   
+ 	- **@Around** ... `ProceedingJoinPoint`   / ... exception handled, so main app never know exception happened!
  	
 6. Adding **Logger** for consistency  
-	- 
+	- logger out-stream instead sysout stream
   
  	
  		

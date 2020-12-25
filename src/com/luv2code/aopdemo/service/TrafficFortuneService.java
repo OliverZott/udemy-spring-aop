@@ -20,4 +20,13 @@ public class TrafficFortuneService {
 
 	}
 
+	public String getFortune(boolean tripWire) {
+
+		if (tripWire) {
+			throw new RuntimeException("Exception here!");
+		}
+
+		return getFortune();
+	}
+
 }

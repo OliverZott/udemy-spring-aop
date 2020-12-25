@@ -20,7 +20,11 @@ public class AroundDemoApp {
 				TrafficFortuneService.class);
 
 		myLogger.info("Calling 'getFortuneTraffic' service method.");
-		String data = trafficFortuneService.getFortune();
+
+		boolean tripWire = true;
+		// String data = trafficFortuneService.getFortune();
+		String data = trafficFortuneService.getFortune(tripWire);
+
 		myLogger.info("Fortune message: " + data);
 		myLogger.info("Finished!");
 
